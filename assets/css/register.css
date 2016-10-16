@@ -1,0 +1,48 @@
+.camagru-register-container {
+	text-align: center;
+	position: relative;
+    max-width: 1024px;
+    height: 100%;
+    padding: 20px 20px 20px 20px;
+    margin: 20px auto;
+    background: #FFFFFF;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    color: #494949;
+    display: inline-block;
+    width: 20%;
+    text-align: left;
+}
+
+.form-label.recover {
+	width: 10%;
+}
+
+.recover-label {
+	color: #494949;
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+
+.form-input {
+    height: 30px;
+    width: 30%;
+    font-size: 15px;
+}
+
+.form-button {
+    width: 15%;
+    border-radius: 6px;
+    height: 35px;
+    background: #93ceec;
+    color: white;
+}
+
+.form-image {
+	margin-bottom: 40px;
+}

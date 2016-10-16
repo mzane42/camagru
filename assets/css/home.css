@@ -1,0 +1,49 @@
+.auth-container {
+	text-align: center;
+}
+
+.login-form {
+	margin-top: 50px;
+}
+
+.login-group, .password-group {
+    padding: 20px;
+}
+
+.login-group label {
+	font-size: 30px;
+    vertical-align: middle;
+    color: #494949;
+}
+
+.login-group input {
+    height: 30px;
+    width: 30%;
+    font-size: 15px;
+}
+
+.password-group label {
+	font-size: 30px;
+    vertical-align: middle;
+    color: #494949;	
+}
+
+.password-group input {
+    width: 30%;
+    height: 30px;
+}
+
+.login-form button{
+	margin: 0 20px 20px 20px;
+    height: 40px;
+    width: 15%;
+    border-radius: 9px;
+    color: white;
+    font-size: 20px;
+    background: #81d6b0;
+}
+
+.login-form a {
+	color: #0083c5;
+    display: block;
+}
