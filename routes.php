@@ -33,7 +33,7 @@
 	}
 	$controllers = array('pages' => ['home', 'error'],
 						 'images' => ['index', 'new', 'create'],
-						 'users' => ['new', 'create', 'login', 'recover', 'reset']);
+						 'users' => ['new', 'create', 'login', 'recover', 'reset', 'logout']);
 
 	if (array_key_exists($controller, $controllers)){
 		if (in_array($action, $controllers[$controller])){

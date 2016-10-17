@@ -60,7 +60,7 @@ textarea {
 .camagru_container {
     position: relative;
     max-width: 1024px;
-    height: 100%;
+    height: auto;
     padding: 20px 20px 20px 20px;
     margin: 20px auto;
     background: #FFFFFF;
@@ -75,8 +75,8 @@ textarea {
 .main-container {
     background: #f2f2f2;
     width: 69%;
-    float: left;
-}
+    display: inline-block;
+  }
 
 .side-container {
     background: #f2f2f2;

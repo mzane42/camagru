@@ -11,16 +11,15 @@
 			$this->id = $id;
 			$this->url_link = $url_link;
 			$this->creation_date = $creation_date;
-			$this->user_id = $user_id;	
+			$this->user_id = $user_id;
 		}
 
 		public static function all() {
 			$list = [];
 			$db = Db::getInstance();
-			$req = $db->query('SELECT * FROM image');
-
+			$req = $db->query('SELECT login, url_link, creation_date, user_id FROM `image`, `user` ORDER BY creation_date');
 			foreach ($req->fetchAll() as $img) {
-				$list[] = new Image($img['id'], $img['url_link'], $post['creation_date'], $img['user_id']);
+				$list[] = $img;
 			}
 			return $list;
 		}

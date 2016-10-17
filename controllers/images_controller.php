@@ -26,7 +26,7 @@
 					$user_id = 1;
 					// format
 					$creation_date = date('Y-m-d H:i:s');
-					
+
 					if (!file_exists('assets/webcam_images/mzane')) {
 		    			mkdir('assets/webcam_images/mzane', 0775, true);
 					}
@@ -63,13 +63,6 @@
 				call('pages', 'error');
 			}
 		}
-		
-		// public function show() {
-		// 	if(!isset($_GET['id']))
-		// 		return call('pages', 'error');
-		// 	$image = Image::find($_GET['id']);
-		// 	require_once('views/posts/show.php')
-		// }
 
 	}
 

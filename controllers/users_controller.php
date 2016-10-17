@@ -148,6 +148,13 @@ class UsersController {
 		}
 	}
 
+	public function logout() {
+		session_start();
+		session_unset($_SESSION['login']);
+		call('pages', 'home');
+		exit;
+	}
+
 	private	function test_input($data) {
 	  $data = trim($data);
 	  $data = stripslashes($data);

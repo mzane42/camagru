@@ -20,10 +20,14 @@ require_once('controllers/flash.php');
 				<a href="?controller=pages&action=home"> <img class="header-logo" src="assets/images/camera.png"/> </a>
 				<div class="menu-wrapper">
 					<ul class="menu">
-					  <li class="menu-row"><a class="log active" href="#h">_Accueil</a></li>
-					  <li class="menu-row"><a class="log" href="#">_Gallerie</a></li>
-					  <li class="menu-row"><a class="log" href="#">_Connexion</a></li>
-					  <li class="menu-row"><a class="log" href="#">_Inscription</a></li>
+					  <li class="menu-row"><a class="log active" href="?controller=pages&action=home">_Accueil</a></li>
+						<?php if (isset($_SESSION['login'])){ ?>
+								<li class="menu-row"><a class="log" href="?controller=images&action=index">_Gallerie</a></li>
+								<li class="menu-row"><a class="log" href="?controller=users&action=logout">_Déconnexion</a></li>
+						<?php } else{ ?>
+								<li class="menu-row"><a class="log" href="?controller=pages&action=home">_Connexion</a></li>
+								<li class="menu-row"><a class="log" href="?controller=users&action='new'">_Inscription</a></li>
+							<?php }?>
 					</ul>
 				</div>
 			</div>

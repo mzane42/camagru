@@ -1,3 +1,6 @@
+<?php
+if (!isset($_SESSION['login'])) {
+?>
 <link rel="stylesheet" type="text/css" href="/assets/css/home.css">
 <div class="camagru_container">
 		<h1 class="camagru-title">Bienvenue sur _Camagru </h1>
@@ -20,3 +23,8 @@
 			</form>
 		</div>
 </div>
+<?php
+}else {
+	call('images', 'new');
+}
+?>
