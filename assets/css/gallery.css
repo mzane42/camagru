@@ -71,6 +71,14 @@
   margin-left: 2px;
 }
 
+.send-comment-btn {
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  min-width: 0px;
+  background: #f2f2f2;
+}
+
 .comment-container textarea{
   width: 92%;
   font-size: 14px;

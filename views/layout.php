@@ -1,5 +1,4 @@
 <?php
-require_once('controllers/flash.php');
 	if( !session_id() )
 	{
 	    session_start();

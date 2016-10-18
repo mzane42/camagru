@@ -17,11 +17,21 @@
 		public static function all() {
 			$list = [];
 			$db = Db::getInstance();
-			$req = $db->query('SELECT login, url_link, creation_date, user_id FROM `image`, `user` ORDER BY creation_date');
+			$req = $db->query('SELECT image.id, login, url_link, creation_date, user.id AS user_id, GROUP_CONCAT(content) AS comments FROM `image` LEFT JOIN `user` ON user.id = image.user_id LEFT JOIN comment_image ON image.id = comment_image.image_id GROUP BY image.id');
 			foreach ($req->fetchAll() as $img) {
 				$list[] = $img;
 			}
 			return $list;
+		}
+
+		public static function find_creator($id) {
+			$db = Db::getInstance();
+			$id = intval($id);
+			$req = $db->prepare('SELECT user.id AS user_id, user.login, user.email, image.id AS image_id FROM user LEFT JOIN image ON user.id = image.user_id WHERE image.id = :id');
+			$req->execute(array('id' => $id));
+			$user = $req->fetch();
+
+			return $user;
 		}
 
 		public static function find($id){

@@ -19,6 +19,15 @@
 			$this->confirm = $confirm;
 			$this->reset = $reset;
 		}
+
+		public static function find($login){
+			$pdo = Db::getInstance();
+			$req = $pdo->prepare('SELECT * FROM user where login = :login');
+			$req->execute(array('login' => $login));
+			$user = $req->fetch();
+			return new User($user['id'], $user['login'], $user['email'], $user['password'], $user['confirmed'], $user['confirm'], $user['reset']);
+		}
+
 		public static function new($login, $email, $password, $confirm) {
 			$pdo = Db::getInstance();
 			$stmt = $pdo->prepare("INSERT INTO user(login, email, password, confirm) VALUES(:login, :email, :password, :confirm)");

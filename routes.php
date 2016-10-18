@@ -4,21 +4,28 @@
         session_start();
     }
 	function call ($controller, $action) {
-		//require the file that matches with the controller name
-		require_once('controllers/'. $controller .'_controller.php');
+    require_once('controllers/'. $controller .'_controller.php');
 		//create the new instance for the controller needed
 		switch($controller){
 			case 'pages':
-				$controller = new PagesController();
+				$controller = new pagesController();
 			break;
 			case 'images':
 				require_once('models/image.php');
-				$controller = new ImagesController();
+				$controller = new imagesController();
 			break;
 			case 'users':
 				require_once('models/user.php');
-				$controller = new UsersController();
+				$controller = new usersController();
 			break;
+      case 'comments':
+        require_once('models/comment.php');
+        $controller = new commentsController();
+      break;
+      case 'likes':
+        require_once('models/like.php');
+        $controller = new likesController();
+      break;
 		}
     if (isset($_SESSION['message'])) {
       if (isset($_SESSION['message']['success'])){
@@ -33,7 +40,8 @@
 	}
 	$controllers = array('pages' => ['home', 'error'],
 						 'images' => ['index', 'new', 'create'],
-						 'users' => ['new', 'create', 'login', 'recover', 'reset', 'logout']);
+						 'users' => ['new', 'create', 'login', 'recover', 'reset', 'logout'],
+             'comments' => ['create', 'comments_image']);
 
 	if (array_key_exists($controller, $controllers)){
 		if (in_array($action, $controllers[$controller])){

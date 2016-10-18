@@ -76,7 +76,7 @@ textarea {
     background: #f2f2f2;
     width: 69%;
     display: inline-block;
-  }
+}
 
 .side-container {
     background: #f2f2f2;
@@ -198,11 +198,7 @@ textarea {
     text-decoration: none;
 }
 
-.menu-row a:hover:not(.active) {
-    background-color: #ef4b00;
-}
-
-.active {
+.menu-row a:hover:active {
     background-color: #ef4b00;
 }
 

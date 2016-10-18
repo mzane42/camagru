@@ -1,8 +1,9 @@
 <?php
 	require_once 'config/database.php';
 	require_once 'routes.php';
+	require_once 'models/user.php';
 
-	class ImagesController {
+	class imagesController {
 		public function index() {
 			$images = Image::all();
 			require_once('views/images/index.php');
@@ -10,7 +11,9 @@
 
 		public function new() {
 			// 	if(!isset($_GET['id']))
-			$user_id = 1;
+			var_dump($_SESSION['login']);
+			$user = User::find($_SESSION['login']);
+			$user_id = $user->id;
 			$last_images = Image::last_images($user_id);
 			$last_image = Image::last_image($user_id);
 			require_once('views/images/new.php');
@@ -19,18 +22,20 @@
 		public function create() {
 			// init
 			//if (isset($_POST[''])
+			var_dump($_SESSION['login']);
 			if (isset($_POST['image'])) {
 					$img = $_POST['image'];
 					$clip = $_POST['clip'];
 					//$user_id = $_POST['user_id'];
-					$user_id = 1;
+					$user = User::find($_SESSION['login']);
+					$user_id = $user->id;
 					// format
 					$creation_date = date('Y-m-d H:i:s');
 
-					if (!file_exists('assets/webcam_images/mzane')) {
-		    			mkdir('assets/webcam_images/mzane', 0775, true);
+					if (!file_exists('assets/webcam_images/'.$_SESSION['login'])) {
+		    			mkdir('assets/webcam_images/'.$_SESSION['login'], 0775, true);
 					}
-					$url_link = 'assets/webcam_images/mzane/'.uniqid().'.jpg';
+					$url_link = 'assets/webcam_images/'.$_SESSION['login'].'/'.uniqid().'.jpg';
 					$img = str_replace('data:image/jpeg;base64,', '', $img);
 					$img = str_replace(' ', '+', $img);
 					/* decode */

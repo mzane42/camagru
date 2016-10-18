@@ -3,7 +3,7 @@ require_once 'config/database.php';
 require_once 'routes.php';
 require_once 'flash.php';
 
-class UsersController {
+class usersController {
 	public function new() {
 		require_once('views/users/new.php');
 	}
@@ -23,6 +23,7 @@ class UsersController {
 				 	call('pages', "error");
 					exit;
 				}
+				$_SESSION['message']["success"] = "<strong> Felicitation ! </strong>  Vous pouvez maintenant vous connectez.";
 				call('pages', 'home');
 				exit;
 			}

@@ -3,7 +3,7 @@
 <div class="camagru_container">
 	<h1 class="camagru-title"> _Gallerie </h1>
   <div class="billboard-container">
-    <?php foreach($images as $image) { ?>
+		<?php foreach($images as $image) { ?>
             <div class="billboard">
               <div class="billboard-informations">
                 <div class="informations-left">
@@ -21,11 +21,20 @@
                 <img class="social-comment" src="assets/images/chat.png"/>
               </div>
               <div class="comment-container">
-                <form>
-                  <textarea placeholder="Votre commentaire ..."></textarea>
-                  <img class="send-comment" src="assets/images/send.png" />
+                <form action="index.php" method="post">
+									<input name="controller" value="comments" hidden />
+									<input name="action" value="create" hidden/>
+									<input name="image_id" value="<?php echo $image['image_id']; ?>" hidden />
+									<textarea placeholder="Votre commentaire ..." name="content"></textarea>
+                  <button class="send-comment-btn" type="submit"><img class="send-comment" src="assets/images/send.png" /></button>
                 </form>
-                <!-- <h2>Commentaires :</h2> !-->
+								<?php if (isset($image['comments'])) { ?>
+									<h2>Commentaires :</h2>
+									<?php $comments = explode(',',$image['comments']);
+										foreach($comments as $comment) { ?>
+											<p> <?php echo $comment ?> </p>
+											<?php }?>
+								<?php }?>
               </div>
             </div>
     <?php } ?>

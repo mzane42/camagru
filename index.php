@@ -9,8 +9,10 @@
 		$action = $_GET['action'];
 	}
 	else if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-		$controller = $_POST['controller'];
+    $controller = $_POST['controller'];
 		$action = $_POST['action'];
+    var_dump($controller);
+    var_dump($action);
 	}
 	else{
 		$controller = 'pages';
