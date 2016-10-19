@@ -20,21 +20,27 @@
                 <img class="social-like" src="assets/images/like.png"/>
                 <img class="social-comment" src="assets/images/chat.png"/>
               </div>
-              <div class="comment-container">
+              <div class="comments-container">
                 <form action="index.php" method="post">
 									<input name="controller" value="comments" hidden />
 									<input name="action" value="create" hidden/>
 									<input name="image_id" value="<?php echo $image['image_id']; ?>" hidden />
-									<textarea placeholder="Votre commentaire ..." name="content"></textarea>
+									<textarea placeholder="Votre commentaire ..." name="content" required></textarea>
                   <button class="send-comment-btn" type="submit"><img class="send-comment" src="assets/images/send.png" /></button>
                 </form>
 								<?php if (isset($image['comments'])) { ?>
-									<h2>Commentaires :</h2>
-									<?php $comments = explode(',',$image['comments']);
-										foreach($comments as $comment) { ?>
-											<p> <?php echo $comment ?> </p>
+									<div class="all-comments-container">
+										<h2>Commentaires :</h2>
+										<?php $comments = explode(',',$image['comments']);
+												$authors = explode(',', $image['authors']);
+												foreach(array_combine($comments, $authors) as $comment => $author) { ?>
+														<div class="comment">
+															<p class="author"> <?php echo $author; ?> </p>
+															<p class="content"> <?php echo $comment; ?> </p>
+														</div>
 											<?php }?>
 								<?php }?>
+								</div>
               </div>
             </div>
     <?php } ?>

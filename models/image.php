@@ -17,7 +17,7 @@
 		public static function all() {
 			$list = [];
 			$db = Db::getInstance();
-			$req = $db->query('SELECT image.id, login, url_link, creation_date, user.id AS user_id, GROUP_CONCAT(content) AS comments FROM `image` LEFT JOIN `user` ON user.id = image.user_id LEFT JOIN comment_image ON image.id = comment_image.image_id GROUP BY image.id');
+			$req = $db->query('SELECT image.id AS image_id, user.login, url_link, creation_date, user.id AS user_id, GROUP_CONCAT(ci.content) AS comments, GROUP_CONCAT(u1.login) AS authors FROM `image` LEFT JOIN `user` ON user.id = image.user_id LEFT JOIN comment_image ci ON image.id = ci.image_id LEFT JOIN user u1 ON u1.id = ci.user_id GROUP BY image.id');
 			foreach ($req->fetchAll() as $img) {
 				$list[] = $img;
 			}

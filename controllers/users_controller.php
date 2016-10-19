@@ -1,7 +1,6 @@
 <?php
 require_once 'config/database.php';
 require_once 'routes.php';
-require_once 'flash.php';
 
 class usersController {
 	public function new() {

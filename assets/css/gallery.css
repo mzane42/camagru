@@ -6,6 +6,7 @@
 .billboard {
   background: #f2f2f2;
   margin-bottom: 20px;
+  border-radius: 10px;
 }
 
 .billboard-informations {
@@ -30,9 +31,10 @@
 }
 
 .billboard-login {
-  display:inline-block;
-  color: #494949;
+  display: inline-block;
   font-weight: bold;
+  font-size: 20px;
+  color: #365899;
   letter-spacing: 1px;
 }
 
@@ -42,8 +44,9 @@
 
 .billboard-date {
   color: #494949;
-  font-weight: bold;
   letter-spacing: 1px;
+  font-style: italic;
+  font-size: 16px;
 }
 
 .billboard-social {
@@ -60,7 +63,7 @@
   margin-left: 20px;
 }
 
-.comment-container {
+.comments-container {
     width: 85%;
     margin: 0 auto;
     padding: 20px;
@@ -79,9 +82,39 @@
   background: #f2f2f2;
 }
 
-.comment-container textarea{
+.comments-container textarea{
   width: 92%;
   font-size: 14px;
   border-radius: 5px;
   border: 1px solid #dad9d9;
+}
+
+.comments-container form {
+  padding-top: 20px;
+  border-top: 1px solid #ccc;
+}
+
+.all-comments-container h2 {
+  border-left: 8px solid #d75a4a;
+  padding: 10px;
+}
+
+.comment {
+    border-bottom: 1px solid #ccc;
+}
+
+.comment p {
+  display: inline-block;
+  font-size: 20px;
+}
+
+.author {
+  color: #365899;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.content {
+  border-left: 3px solid #365899;
+  padding: 10px;
 }
