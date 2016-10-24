@@ -7,11 +7,11 @@
     public $image_id;
     public $user_id;
 
-    public function add_comment(){
-      
+    public function like(){
+
     }
 
-    public function find_comments_image(){
+    public function dislike(){
 
     }
   }

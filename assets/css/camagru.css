@@ -235,3 +235,9 @@ textarea {
 .header-logo {
     height: 65px;
 }
+
+.clips-container {
+  overflow-x: auto;
+  width: 100%;
+  white-space: nowrap;
+}
