@@ -2,8 +2,8 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/gallery.css">
 <div class="camagru_container">
 	<h1 class="camagru-title"> _Gallerie </h1>
-  <div class="billboard-container">
 		<?php foreach($images as $image) { ?>
+			<div class="billboard-container">
             <div class="billboard">
               <div class="billboard-informations">
                 <div class="informations-left">
@@ -39,10 +39,10 @@
 															<p class="content"> <?php echo $comment; ?> </p>
 														</div>
 											<?php }?>
+										</div>
 								<?php }?>
-								</div>
               </div>
             </div>
+					</div>
     <?php } ?>
-  </div>
 </div>

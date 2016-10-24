@@ -26,7 +26,7 @@
 			if (isset($_POST['image'])) {
 					$img = $_POST['image'];
 					$clip = $_POST['clip'];
-					//$user_id = $_POST['user_id'];
+					$clip_explode = explode('_', $clip);
 					$user = User::find($_SESSION['login']);
 					$user_id = $user->id;
 					// format
@@ -45,9 +45,7 @@
 					imagesavealpha($dest, true);
 					/* montage */
 					$clip = imagecreatefrompng('assets/clip/'.$_POST['clip'].'.png');
-
-					imagecopy($dest, $clip, (imagesx($dest) / 2) - 60, imagesy($dest) / 4, 0, 0, imagesx($clip), imagesy($clip));
-
+					imagecopy($dest, $clip, $clip_explode[1], $clip_explode[2], 0, 0, imagesx($clip), imagesy($clip));
 					/* save */
 					ob_start();
 					imagejpeg($dest, $url_link);
