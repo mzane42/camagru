@@ -11,7 +11,6 @@
 
 		public function new() {
 			// 	if(!isset($_GET['id']))
-			var_dump($_SESSION['login']);
 			$user = User::find($_SESSION['login']);
 			$user_id = $user->id;
 			$last_images = Image::last_images($user_id);
@@ -22,7 +21,6 @@
 		public function create() {
 			// init
 			//if (isset($_POST[''])
-			var_dump($_SESSION['login']);
 			if (isset($_POST['image'])) {
 					$img = $_POST['image'];
 					$clip = $_POST['clip'];

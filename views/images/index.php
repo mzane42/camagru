@@ -17,8 +17,17 @@
                 <img src="<?php echo $image['url_link']; ?>"/>
               </div>
               <div class="billboard-social">
-                <img class="social-like" src="assets/images/like.png"/>
-                <img class="social-comment" src="assets/images/chat.png"/>
+								<form class="like_form" name="like" action="index.php" method="post">
+									<input hidden name="controller" value="likes"/>
+									<input hidden name="action" value="like" />
+									<input hidden name="image_id" value="<?php echo $image['image_id']; ?>" />
+									<a href="#" onclick="document.forms['like'].submit();">
+										<img class="social-like" src="assets/images/dislike.png"/>
+									</a>
+								</form>
+								<p class="count_likes"><?php echo $image['count_likes']; ?></p>
+								<img class="social-comment" src="assets/images/chat.png"/>
+								<a class="count_comments"> <?php echo $image['count_comments']; ?> </a>
               </div>
               <div class="comments-container">
                 <form action="index.php" method="post">

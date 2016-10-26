@@ -65,8 +65,6 @@
 		}
 		public static function reset_confirmed($password, $reset){
 			$pdo = Db::getInstance();
-			var_dump($password);
-			var_dump($reset);
 			$stmt = $pdo->prepare("UPDATE user SET password=:password where reset=:reset");
 			$stmt->bindValue(':password', $password);
 			$stmt->bindValue(':reset', $reset);

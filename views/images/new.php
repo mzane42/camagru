@@ -5,7 +5,7 @@
 			<img src="assets/images/one.png" />
 			<p>  Choisis une image :</p>
 		</div>
-		<div class="clips-container">	
+		<div class="clips-container">
 			<table class="clip-gallery">
 				<form action="index.php" name="uploadphoto" method="post" enctype="multipart/form-data">
 				  <input name="controller" value="images" hidden />
@@ -14,23 +14,16 @@
 						<?php
 							$clips_dir = "assets/clip/*.png";
 							$clips = glob($clips_dir);
-							// $value = substr($clip, 12, -4);
-							// echo "<th>".PHP_EOL;
-							// echo "<img src='" . $clip ."' class='clip' name='clip' value='". $value ."'/>".PHP_EOL;
+
 							foreach( $clips as $clip ){
 								$value = substr($clip, 12, -4);
+								$class = explode('_', $value);
 								?>
 								<th>
-						    	<img src='<?php echo $clip; ?>'/> <br>
+						    	<img class="<?php echo $class[0]; ?>" src='<?php echo $clip; ?>'/> <br>
 						      	<input type="radio" name="clip" class="clip" value="<?php echo $value; ?>">
 						    </th>
-
 						<?php	} ?>
-						<!-- .container {
-	    width: 30em;
-	    overflow-x: auto;
-	    white-space: nowrap;
-	}!-->
 				  </tr>
 			</table>
 		</div>
