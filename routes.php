@@ -39,7 +39,7 @@
 		$controller->{ $action }();
 	}
 	$controllers = array('pages' => ['home', 'error'],
-						 'images' => ['index', 'new', 'create'],
+						 'images' => ['index', 'new', 'create', 'delete_from_new', 'delete_from_index'],
 						 'users' => ['new', 'create', 'login', 'recover', 'reset', 'logout'],
              'comments' => ['create', 'comments_image'],
              'likes' => ['like', 'dislike', 'count_likes']);

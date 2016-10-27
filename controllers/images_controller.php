@@ -65,6 +65,39 @@
 			}
 		}
 
+		public function delete_from_index() {
+			if (isset($_POST['image_id'])) {
+				try {
+					$delete = Image::delete($_POST['image_id']);
+				}
+			catch(exception $e){
+					$msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
+					call('pages', "error");
+				}
+				call('images', 'index');
+			}
+			else {
+				call('images', 'index');
+			}
+		}
+
+
+		public function delete_from_new() {
+			if (isset($_POST['image_id'])) {
+				try {
+					$delete = Image::delete($_POST['image_id']);
+				}
+			catch(exception $e){
+					$msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
+					call('pages', "error");
+				}
+				call('images', 'new');
+			}
+			else {
+				call('images', 'new');
+			}
+		}
+
 	}
 
 ?>

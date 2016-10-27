@@ -23,6 +23,7 @@
 .informations-right {
   display: inline-block;
   float: right;
+  min-width: 25%;
 }
 
 .image-wrapper {
@@ -47,6 +48,11 @@
   letter-spacing: 1px;
   font-style: italic;
   font-size: 16px;
+  display: inline-block;
+}
+
+.billboard-delete {
+  height: 25px;
 }
 
 .billboard-social {
@@ -129,6 +135,25 @@
 .billboard-social a {
   display:inline-block;
   color: #0f71d3;
+}
+
+.billboard-social button {
+  border: 0;
+  min-width: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.informations-right button {
+  border: 0;
+  min-width: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.delete_form {
+  display: inline-block;
+  float: right;
 }
 
 .like_form {

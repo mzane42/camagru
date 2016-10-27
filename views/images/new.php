@@ -52,13 +52,12 @@
 			<h2>Mes photos : </h2>
 		</div>
 		<div class="last-images">
-
 			<?php
 			    if (count($last_images) > 0) {
 				    $table = "<table class='image-gallery'><tbody><tr>";
 				    foreach($last_images as $a => $img) {
 
-				        $table .= "<td><img class='last-image' src='$img->url_link'/> </td>";
+				        $table .= "<td><form class='delete_image' name='delete_image' action='index.php' method='post'> <input hidden name='controller' value='images'/> <input hidden name='action' value='delete_from_new' /> <input hidden name='image_id' value='$img->id'/> <button> <img class='billboard-delete' src='assets/images/delete.png'/></button> </form><img class='last-image' src='$img->url_link'/> </td>";
 				        if(($a+1) % 3 == 0)
 				            $table .= "</tr><tr>";
 

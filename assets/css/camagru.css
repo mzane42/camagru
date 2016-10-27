@@ -20,6 +20,7 @@ button {
     letter-spacing: 1px;
     border:none;
     min-width: 80px;
+    cursor:pointer
 }
 
 a {
@@ -55,6 +56,21 @@ h2 {
 
 textarea {
     resize: none;
+}
+
+.delete_image {
+    text-align: left;
+}
+
+.delete_image button {
+  border: 0;
+  min-width: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.delete_image img {
+  height: 17px;
 }
 
 .camagru_container {

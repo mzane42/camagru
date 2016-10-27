@@ -17,12 +17,13 @@
 		public static function all() {
 			$list = [];
 			$db = Db::getInstance();
-			$req = $db->query('SELECT image.id AS image_id, user.login, url_link, creation_date, user.id AS user_id, GROUP_CONCAT(ci.content) AS comments, GROUP_CONCAT(u1.login) AS authors FROM `image` LEFT JOIN `user` ON user.id = image.user_id LEFT JOIN comment_image ci ON image.id = ci.image_id LEFT JOIN user u1 ON u1.id = ci.user_id GROUP BY image.id');
+			$req = $db->query('SELECT image.id AS image_id, user.login, url_link, creation_date, user.id AS user_id, GROUP_CONCAT(ci.content) AS comments, GROUP_CONCAT(u1.login) AS authors_comments, COUNT(ci.content) as nb_comments, likes.nb_likes, likes.authors_likes FROM image LEFT JOIN `user` ON user.id = image.user_id LEFT JOIN comment_image ci ON image.id = ci.image_id LEFT JOIN user u1 ON u1.id = ci.user_id LEFT JOIN (SELECT COUNT(like_image.id) AS nb_likes, like_image.image_id, GROUP_CONCAT(user.login) as authors_likes FROM like_image LEFT JOIN image ON image.id = like_image.image_id LEFT JOIN user ON user.id = like_image.user_id WHERE like_image.image_id = image.id GROUP BY image.id) likes ON likes.image_id = image.id GROUP BY image.id ORDER BY creation_date');
 			foreach ($req->fetchAll() as $img) {
 				$list[] = $img;
 			}
 			return $list;
 		}
+
 
 		public static function find_creator($id) {
 			$db = Db::getInstance();
@@ -72,5 +73,13 @@
 			$stmt->bindValue(':creation_date', $creation_date);
 			$stmt->execute();
 		}
+
+		public function delete($image_id){
+      $pdo = Db::getInstance();
+      $stmt = $pdo->prepare("DELETE FROM `image` WHERE id = :id");
+      $stmt->bindValue(':id', $image_id);
+      $stmt->execute();
+    }
+
 	}
 ?>
