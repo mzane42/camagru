@@ -2,6 +2,7 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/gallery.css">
 <div class="camagru_container">
 	<h1 class="camagru-title"> _Gallerie </h1>
+
 		<?php foreach($images as $image) { ?>
 			<div class="billboard-container">
             <div class="billboard">
@@ -69,4 +70,31 @@
             </div>
 					</div>
     <?php } ?>
+		<div class="navigation">
+				<?php
+					if($images && count($images) > 0)
+					{
+						echo "<h3 class='nb_pages'>Nombre de pages : $pages</h3>";
+						echo "<p class='nb_images'>Nombre d'images : $total_images</p>";
+
+						# first page
+						if($number <= 1)
+							echo "<span>&laquo; Precedent</span> | <a href=\"?controller=images&action=index&page=$next\">Suivant &raquo;</a>";
+
+						# last page
+						elseif($number >= $pages)
+							echo "<a href=\"?controller=images&action=index&page=$prev\">&laquo; Precedent</a> | <span>Suivant &raquo;</span>";
+
+						# in range
+						else
+							echo "<a href=\"?controller=images&action=index&page=$prev\">&laquo; Precedent</a> | <a href=\"?controller=images&action=index&page=$next\">Suivant &raquo;</a>";
+					}
+
+					else
+					{
+						echo "<p> Aucune images trouves.</p>";
+					}
+
+				?>
+			</div>
 </div>

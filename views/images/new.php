@@ -29,7 +29,11 @@
 		</div>
 		<div class="instruction-one">
 			<img src="assets/images/two.png" />
-			<p>  Fais-toi beau/belle : </p>
+			<p>  regarde la cam  ou uploade ta photo : </p>
+			<label class="upload_file">
+			  <img src="assets/images/upload.png" alt="" />
+			  <input name="upload" type="file" accept="image/jpeg" />
+			</label>
 		</div>
 		<div class="video-container">
 			<video id="video"></video>

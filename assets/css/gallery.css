@@ -167,3 +167,23 @@
     color: red;
     font-weight: bold;
 }
+
+.navigation {
+  text-align: center;
+}
+
+.nb_pages {
+  color : #365899;
+}
+
+.nb_images {
+  color : #494949;
+}
+
+.navigation a {
+    color: #494949;
+}
+
+.navigation a:hover {
+    color: #e34700;
+}

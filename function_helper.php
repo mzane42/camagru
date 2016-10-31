@@ -1,4 +1,4 @@
-<<?php
+<?php
 
   function humanTiming ($time)
   {

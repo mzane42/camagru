@@ -26,15 +26,6 @@
       else {
         call('images', 'index');
       }
-      //if dislike
-    }
-
-    public function dislike() {
-
-    }
-
-    public function count_likes() {
-
     }
 
   }

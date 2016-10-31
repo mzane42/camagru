@@ -5,7 +5,35 @@
 
 	class imagesController {
 		public function index() {
-			$images = Image::all();
+			$total = image::total();
+			$perpage = 2;
+			$total_images  = $total['rows'];
+			$pages  = ceil($total_images / $perpage);
+
+			# default
+			$get_pages = isset($_GET['page']) ? $_GET['page'] : 1;
+
+			$data = array(
+				'options' => array(
+					'default'   => 1,
+					'min_range' => 1,
+					'max_range' => $pages
+					)
+			);
+
+			$number = trim($get_pages);
+			$number = filter_var($number, FILTER_VALIDATE_INT, $data);
+			$range  = $perpage * ($number - 1);
+
+			$prev = $number - 1;
+			$next = $number + 1;
+			// try{
+				$images = Image::all($perpage, $range);
+			// }
+			// catch(exception $e) {
+			// 	$msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
+			// 	call('pages', "error");
+			// }
 			require_once('views/images/index.php');
 		}
 
@@ -21,8 +49,7 @@
 		public function create() {
 			// init
 			//if (isset($_POST[''])
-			if (isset($_POST['image'])) {
-					$img = $_POST['image'];
+			if (isset($_POST['image']) || isset($_FILES["upload"]["name"])) {
 					$clip = $_POST['clip'];
 					$clip_explode = explode('_', $clip);
 					$user = User::find($_SESSION['login']);
@@ -34,16 +61,49 @@
 		    			mkdir('assets/webcam_images/'.$_SESSION['login'], 0775, true);
 					}
 					$url_link = 'assets/webcam_images/'.$_SESSION['login'].'/'.uniqid().'.jpg';
-					$img = str_replace('data:image/jpeg;base64,', '', $img);
-					$img = str_replace(' ', '+', $img);
+					if (isset($_FILES["upload"]["name"]) && $_FILES["upload"]["size"] != 0){
+						$target_dir = "uploads/";
+						$target_file = $target_dir . basename($_FILES["upload"]["name"]);
+						$uploadOk = 1;
+						$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+						$check = getimagesize($_FILES["upload"]["tmp_name"]);
+						if($check !== false) {
+							if (move_uploaded_file($_FILES["upload"]["tmp_name"], $target_file)) {
+								$dest = imagecreatefromjpeg($target_file);
+								unlink($target_file);
+							}
+
+						}
+						else {
+							$img = $_POST['image'];
+							$img = str_replace('data:image/jpeg;base64,', '', $img);
+							$img = str_replace(' ', '+', $img);
+							$destim = base64_decode($img);
+							$dest = imagecreatefromstring($destim);
+						}
+					}
+					else {
+						$img = $_POST['image'];
+						$img = str_replace('data:image/jpeg;base64,', '', $img);
+						$img = str_replace(' ', '+', $img);
+						$destim = base64_decode($img);
+						$dest = imagecreatefromstring($destim);
+					}
 					/* decode */
-					$destim = base64_decode($img);
-					$dest = imagecreatefromstring($destim);
 					imagealphablending($dest, true);
 					imagesavealpha($dest, true);
 					/* montage */
 					$clip = imagecreatefrompng('assets/clip/'.$_POST['clip'].'.png');
-					imagecopy($dest, $clip, $clip_explode[1], $clip_explode[2], 0, 0, imagesx($clip), imagesy($clip));
+					//imagecopy($dest, $clip, $clip_explode[1], $clip_explode[2], 0, 0, imagesx($clip), imagesy($clip));
+					if ($clip_explode[1] == 'l'){
+						imagecopy($dest, $clip, imagesx($dest) / 6, imagesy($dest) / 6, 0, 0, imagesx($clip), imagesy($clip));
+					}
+					else if ($clip_explode[1] == 'r'){
+						imagecopy($dest, $clip, imagesx($dest) - imagesx($dest) / 3, imagesy($dest) / 2, 0, 0, imagesx($clip), imagesy($clip));
+					}
+					else {
+						imagecopy($dest, $clip, 0, imagesy($dest) - imagesy($clip), 0, 0, imagesx($clip), imagesy($clip));
+					}
 					/* save */
 					ob_start();
 					imagejpeg($dest, $url_link);

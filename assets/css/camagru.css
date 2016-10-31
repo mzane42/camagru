@@ -130,7 +130,6 @@ textarea {
     display: inline-block;
     font-size: 20px;
     margin: 0;
-    width: 33%;
     color: #494949;
     margin-left: 22px;
     vertical-align: bottom;
@@ -260,4 +259,21 @@ textarea {
 
 .brazzers {
   height: 60px;
+}
+
+
+.upload_file {
+  position: relative;
+  overflow: hidden;
+  clear: left;
+}
+
+.upload_file input[type="file"] {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  cursor: pointer;
 }

@@ -15,16 +15,16 @@
       $headers = 'From: Admin<admin@camagru.42.fr>' . "\r\n" .
     		'Reply-To: <admin@camagru.42.fr>' . "\r\n" .
     		'X-Mailer: PHP/' . phpversion();
-    	$msg = "'$user->login' commented on one of your photos.\n\n'$user->login' : '$content'";
-    	mail($creator->email, "New Comment", $msg, $headers);
-      // try {
+    	$msg = "$user->login commented on one of your photos.\n\n'$user->login' : '$content'";
+    	mail($creator['email'], "New Comment", $msg, $headers);
+      try {
          $new_comment = Comment::create_comment($content, $image_id, $user_id);
-      //  }
-      // catch (exception $e){
-      //     $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
-      //     call('pages', "error");
-      //     exit;
-      // }
+      }
+      catch (exception $e){
+           $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
+           call('pages', "error");
+           exit;
+      }
       call('images','index');
       exit;
     }
