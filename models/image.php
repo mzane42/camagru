@@ -1,6 +1,4 @@
 <?php
-	require_once 'config/database.php';
-
 	class Image {
 		public $id;
 		public $url_link;

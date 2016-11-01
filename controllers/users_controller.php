@@ -1,6 +1,4 @@
 <?php
-require_once 'config/database.php';
-require_once 'routes.php';
 
 class usersController {
 	public function new() {
@@ -8,18 +6,13 @@ class usersController {
 	}
 
 	public function create() {
-			if( !session_id() )
-		    {
-		        session_start();
-		    }
-
 			if (isset($_GET['confirm'])){
 				try {
 					$confirm_user = User::confirmed($_GET['confirm']);
 				}
 				catch(exception $e) {
 					$msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
-				 	call('pages', "error");
+					header('Location: /views/pages/error.php');
 					exit;
 				}
 				$_SESSION['message']["success"] = "<strong> Felicitation ! </strong>  Vous pouvez maintenant vous connectez.";
@@ -67,13 +60,9 @@ class usersController {
 	}
 
 	public function login() {
-		if( !session_id() )
-		{
-					session_start();
-		}
-		if (isset($_SESSION['login'])){
-			unset($_SESSION['login']);
-		}
+		// if (isset($_SESSION['login'])){
+		// 	unset($_SESSION['login']);
+		// }
 		if (isset($_POST['login'])){
 			$login	= UsersController::test_input($_POST['login']);
 			$password	= UsersController::test_input(hash('whirlpool', $_POST['password']."camagru"));
@@ -81,17 +70,18 @@ class usersController {
 			$auth = User::authentification($login, $password);
 			}
 			catch (exception $e){
-			call('pages','error');
+				header('Location: /views/pages/error.php');
 				exit;
 			}
 			if ($auth->password == $password){
 				$_SESSION['login'] = $login;
-				call('images', 'new');
+				header('Location: /views/snapshots.php');
 				exit;
 			}
 			else{
 				$_SESSION['message']['error'] = "<strong> Attention ! </strong> Login et/ou mot de passe incorrect";
-				call('pages', 'home');
+				header('Location: /');
+				exit;
 			}
 		}
 	}
@@ -148,12 +138,6 @@ class usersController {
 		}
 	}
 
-	public function logout() {
-		session_start();
-		session_unset($_SESSION['login']);
-		call('pages', 'home');
-		exit;
-	}
 
 	private	function test_input($data) {
 	  $data = trim($data);

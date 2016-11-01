@@ -1,7 +1,5 @@
 <?php
-	require_once 'config/database.php';
-	require_once 'routes.php';
-	require_once 'models/user.php';
+	require_once '../models/user.php';
 
 	class imagesController {
 		public function index() {
@@ -27,28 +25,24 @@
 
 			$prev = $number - 1;
 			$next = $number + 1;
-			// try{
+			 try{
 				$images = Image::all($perpage, $range);
-			// }
-			// catch(exception $e) {
-			// 	$msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
-			// 	call('pages', "error");
-			// }
+			}
+			catch(exception $e) {
+			 	$msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
+			 	call('pages', "error");
+			}
 			require_once('views/images/index.php');
 		}
 
 		public function new() {
-			// 	if(!isset($_GET['id']))
 			$user = User::find($_SESSION['login']);
 			$user_id = $user->id;
 			$last_images = Image::last_images($user_id);
-			$last_image = Image::last_image($user_id);
-			require_once('views/images/new.php');
+			return $last_images;
 		}
 
 		public function create() {
-			// init
-			//if (isset($_POST[''])
 			if (isset($_POST['image']) || isset($_FILES["upload"]["name"])) {
 					$clip = $_POST['clip'];
 					$clip_explode = explode('_', $clip);
@@ -57,12 +51,12 @@
 					// format
 					$creation_date = date('Y-m-d H:i:s');
 
-					if (!file_exists('assets/webcam_images/'.$_SESSION['login'])) {
-		    			mkdir('assets/webcam_images/'.$_SESSION['login'], 0775, true);
+					if (!file_exists('../assets/webcam_images/'.$_SESSION['login'])) {
+		    			mkdir('../assets/webcam_images/'.$_SESSION['login'], 0775, true);
 					}
-					$url_link = 'assets/webcam_images/'.$_SESSION['login'].'/'.uniqid().'.jpg';
+					$url_link = '/assets/webcam_images/'.$_SESSION['login'].'/'.uniqid().'.jpg';
 					if (isset($_FILES["upload"]["name"]) && $_FILES["upload"]["size"] != 0){
-						$target_dir = "uploads/";
+						$target_dir = "../uploads/";
 						$target_file = $target_dir . basename($_FILES["upload"]["name"]);
 						$uploadOk = 1;
 						$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -72,7 +66,6 @@
 								$dest = imagecreatefromjpeg($target_file);
 								unlink($target_file);
 							}
-
 						}
 						else {
 							$img = $_POST['image'];
@@ -89,12 +82,9 @@
 						$destim = base64_decode($img);
 						$dest = imagecreatefromstring($destim);
 					}
-					/* decode */
 					imagealphablending($dest, true);
 					imagesavealpha($dest, true);
-					/* montage */
-					$clip = imagecreatefrompng('assets/clip/'.$_POST['clip'].'.png');
-					//imagecopy($dest, $clip, $clip_explode[1], $clip_explode[2], 0, 0, imagesx($clip), imagesy($clip));
+					$clip = imagecreatefrompng('../assets/clip/'.$_POST['clip'].'.png');
 					if ($clip_explode[1] == 'l'){
 						imagecopy($dest, $clip, imagesx($dest) / 6, imagesy($dest) / 6, 0, 0, imagesx($clip), imagesy($clip));
 					}
@@ -106,7 +96,8 @@
 					}
 					/* save */
 					ob_start();
-					imagejpeg($dest, $url_link);
+						imagejpeg($dest, '../'.$url_link);
+						$image_data = ob_get_contents();
 					ob_end_clean();
 					/* insert */
 					try {
@@ -114,47 +105,35 @@
 					}
 					catch (exception $e){
 						$msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
-						call('pages', "error");
+						header('Location: /views/pages/error.php');
+						exit;
 					}
 					imagedestroy($dest);
-					call('images', 'new');
+					header('Location: /views/snapshots.php');
 					exit;
 			}
 			else {
-				call('pages', 'error');
+				header('Location: /views/pages/error.php');
+				exit;
 			}
 		}
 
-		public function delete_from_index() {
+		public function delete_image() {
 			if (isset($_POST['image_id'])) {
 				try {
 					$delete = Image::delete($_POST['image_id']);
 				}
 			catch(exception $e){
 					$msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
-					call('pages', "error");
+					header('Location: /views/pages/error.php');
+					exit;
 				}
-				call('images', 'index');
+				header('Location: '.$_SERVER['HTTP_REFERER']);
+				exit;
 			}
 			else {
-				call('images', 'index');
-			}
-		}
-
-
-		public function delete_from_new() {
-			if (isset($_POST['image_id'])) {
-				try {
-					$delete = Image::delete($_POST['image_id']);
-				}
-			catch(exception $e){
-					$msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
-					call('pages', "error");
-				}
-				call('images', 'new');
-			}
-			else {
-				call('images', 'new');
+				header('Location: '.$_SERVER['HTTP_REFERER']);
+				exit;
 			}
 		}
 

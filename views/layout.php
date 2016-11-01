@@ -32,7 +32,6 @@
 			</div>
 		</nav>
 	    <?php require_once('routes.php'); ?>
-		</div>
 		<script src="/assets/js/camagru.js"></script>
 		<footer> mzane42 </footer>
 	</body>
