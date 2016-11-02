@@ -1,5 +1,5 @@
 <?php
-  require_once('models/user.php');
+  require_once('../models/user.php');
   class likesController {
 
     public function like() {
@@ -14,17 +14,21 @@
           }
           catch (exception $e){
               $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
-              call('pages', "error");
+              header('Location: /views/pages/error.php');
+              exit;
             }
-            call('images', 'index');
+            header('Location: /views/gallery.php');
+            exit;
         }
         else {
             $dislike = Like::add_dislike($image_id, $user_id);
-            call('images', 'index');
+            header('Location: /views/gallery.php');
+            exit;
         }
       }
       else {
-        call('images', 'index');
+        header('Location: /views/gallery.php');
+        exit;
       }
     }
 

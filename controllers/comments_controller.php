@@ -1,8 +1,6 @@
 <?php
-  require_once 'config/database.php';
-  require_once 'routes.php';
-  require_once 'models/user.php';
-  require_once 'models/image.php';
+  require_once '../models/user.php';
+  require_once '../models/image.php';
 
   class commentsController {
     public function create() {
@@ -22,10 +20,10 @@
       }
       catch (exception $e){
            $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
-           call('pages', "error");
+           header('Location: /views/pages/error.php');
            exit;
       }
-      call('images','index');
+      header('Location: /views/gallery.php');
       exit;
     }
 

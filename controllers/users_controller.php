@@ -1,12 +1,9 @@
 <?php
 
 class usersController {
-	public function new() {
-		require_once('views/users/new.php');
-	}
 
-	public function create() {
-			if (isset($_GET['confirm'])){
+	public function create($confirm) {
+			if (isset($confirm)){
 				try {
 					$confirm_user = User::confirmed($_GET['confirm']);
 				}
@@ -16,7 +13,7 @@ class usersController {
 					exit;
 				}
 				$_SESSION['message']["success"] = "<strong> Felicitation ! </strong>  Vous pouvez maintenant vous connectez.";
-				call('pages', 'home');
+				header('Location: /');
 				exit;
 			}
 			if (isset($_POST['login'])) {
@@ -26,7 +23,7 @@ class usersController {
 				$validation = User::validation($login, $email);
 				if (isset($validation->id)) {
 					$_SESSION["message"]["error"] = "<strong>Attention !</strong> Le login et/ou l'adresse e-mail existe déjà.";
-					call('users', 'new');
+					header('Location: /views/register.php');
 					exit;
 				}
 				$headers = 'From: Admin<admin@camagru.42.fr>' . "\r\n" .
@@ -38,7 +35,7 @@ class usersController {
 					$random_confirmed .= $salt[rand() % strlen($salt)];
 				}
 				$confirm = htmlspecialchars(hash('md5', $random_confirmed.$email));
-				$link = "http://localhost:8080/index.php?controller=users&action=create&confirm=".$confirm;
+				$link = "http://localhost:8080/servers/confirm.php?confirm=".$confirm;
 				$msg = "Please click on the below link to active your password : \n" . $link;
 				mail($email, "Active your account", $msg, $headers);
 				 try {
@@ -46,15 +43,15 @@ class usersController {
 				}
 				catch (exception $e){
 				 		$msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
-						call('pages', "error");
+						header('Location: /views/pages/error.php');
 						exit;
 				}
         $_SESSION['message']["success"] = "<strong> Felicitation ! </strong>  Rendez-vous dans votre boite e-mail pour confirmer votre inscription.";
-				call('pages', 'home');
+				header('Location: /');
 				exit;
 			}
 			else {
-				call('users', 'new');
+				header('Location: /views/register.php');
 				exit;
 			}
 	}
@@ -97,7 +94,6 @@ class usersController {
 	}
 
 	public function reset() {
-		session_start();
 		if (!isset($_SESSION['login'])){
 			if (isset($_POST['reset'])){
 				$password	= UsersController::test_input(hash('whirlpool', $_POST['password']."camagru"));
@@ -110,7 +106,7 @@ class usersController {
 				$validation = User::validation_email($email);
 				if (!isset($validation->id)) {
 					$_SESSION["message"]["error"] = "<strong>Attention !</strong> l'adresse e-mail n'existe pas.";
-					call('users', 'recover');
+					header('Location: views/recovery.php');
 					exit;
 				}
 				$headers = 'From: Admin<admin@camagru.42.fr>' . "\r\n" .
@@ -123,17 +119,17 @@ class usersController {
 					$random_reset .= $salt[rand() % strlen($salt)];
 				}
 				$reset = htmlspecialchars(hash('md5', $random_reset.$email));
-				$link = "http://localhost:8080/index.php?controller=users&action=recover&reset=".$reset;
+				$link = "http://localhost:8080/views/recovery.php?reset=".$reset;
 				$msg = "Please click on the below link to reset your password : \n" . $link;
 				mail($email, "Reset Password", $msg, $headers);
 				$reset = User::reset($email, $reset);
 				$_SESSION['message']["success"] = "<strong> Felicitation ! </strong>  Rendez-vous dans votre boite e-mail pour la suite.";
 			}
-			call('pages', 'home');
+			header('Location: /');
 			exit;
 		}
 		else {
-			call('pages', 'home');
+			header('Location: /');
 			exit;
 		}
 	}

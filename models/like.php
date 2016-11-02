@@ -1,6 +1,4 @@
 <?php
-  require_once ('config/database.php');
-
   class Like {
     public $id;
     public $user_id;

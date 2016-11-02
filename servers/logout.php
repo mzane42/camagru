@@ -1,9 +1,6 @@
 <?php
-if( !session_id() )
-  {
-      session_start();
-  }
-  session_unset($_SESSION['login']);
-  header('location : /');
+  session_start();
+  unset($_SESSION['login']);
+  header('Location: /');
   exit;
 ?>

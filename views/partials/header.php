@@ -14,10 +14,10 @@
 				<div class="menu-wrapper">
 					<ul class="menu">
 					  <li class="menu-row"><a class="log active" href="/">_Accueil</a></li>
-						<?php if (isset($_SESSION['login'])){ var_dump($_SESSION['login']); ?>
+						<?php if (isset($_SESSION['login'])){?>
 								<li class="menu-row"><a class="log" href="/views/gallery.php">_Gallerie</a></li>
 								<li class="menu-row"><a class="log" href="/servers/logout.php">_Déconnexion</a></li>
-						<?php } else{ var_dump($_SESSION['login']); ?>
+						<?php } else{ ?>
 								<li class="menu-row"><a class="log" href="/">_Connexion</a></li>
 								<li class="menu-row"><a class="log" href="/views/register.php">_Inscription</a></li>
 							<?php }?>
