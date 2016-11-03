@@ -20,7 +20,7 @@
 						<?php } else{ ?>
 								<li class="menu-row"><a class="log" href="/">_Connexion</a></li>
 								<li class="menu-row"><a class="log" href="/views/register.php">_Inscription</a></li>
-							<?php }?>
+						<?php }?>
 					</ul>
 				</div>
 			</div>

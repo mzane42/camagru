@@ -1,6 +1,5 @@
 <?php
 	session_start();
-  require_once('views/partials/header.php');
   if (isset($_SESSION['message'])) {
     if (isset($_SESSION['message']['success'])){
       $class_name = 'success';
@@ -11,6 +10,7 @@
     require_once('views/flash_message.php');
   }
   if (!isset($_SESSION['login'])) {
+	require_once('views/partials/header.php');
 ?>
 <link rel="stylesheet" type="text/css" href="/assets/css/home.css">
 <div class="camagru_container">
@@ -35,7 +35,7 @@
 <?php
   require_once('views/partials/footer.php');
 }else {
-	header('Location: /');
+	header('Location: /views/snapshots.php');
 	exit;
 }
 ?>

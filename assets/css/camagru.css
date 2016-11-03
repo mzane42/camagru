@@ -98,7 +98,9 @@ textarea {
     background: #f2f2f2;
     width: 30%;
     float: right;
+    overflow-y: auto;
     height: 700px;
+    white-space: nowrap;
 }
 
 .instruction-one {
