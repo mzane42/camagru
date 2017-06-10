@@ -1,0 +1,21 @@
+version: '2'
+services:
+  mysql-camagru:
+    image: mysql
+    ports:
+      - "33060:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_camagru
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+  php-camagru:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql-camagru
+    links:
+      - mysql-camagru:mysql-camagru
+    ports:
+      - "8080:80"
