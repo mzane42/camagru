@@ -102,6 +102,11 @@ class usersController {
 		if (!isset($_SESSION['login'])){
 			if (isset($_POST['reset'])){
 				$password	= UsersController::test_input(hash('whirlpool', $_POST['password']."camagru"));
+				if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{8,40}$/', $_POST['password'])) {
+					$_SESSION["message"]["error"] = "<strong>Attention !</strong> the password does not meet the requirements! <br> Tips: <br> en moins un number <br> en moins un letter <br>  La taile du mot de passe doit etre entre 8 et 40  ";
+					header('Location: /views/recovery.php');
+					exit;
+				}
 				$reset = $_POST['reset'];
 				$reset_confirmed = User::reset_confirmed($password, $reset);
 				$_SESSION['message']["success"] = "<strong> Felicitation ! </strong>  Vous pouvez maintenant vous connectez.";
@@ -109,14 +114,9 @@ class usersController {
 			else {
 				$email = UsersController::test_input($_POST['email']);
 				$validation = User::validation_email($email);
-				if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{8,40}$/', $_POST['password'])) {
-					$_SESSION["message"]["error"] = "<strong>Attention !</strong> the password does not meet the requirements! <br> Tips: <br> en moins un number <br> en moins un letter <br>  La taile du mot de passe doit etre entre 8 et 40  ";
-					header('Location: views/recovery.php');
-					exit;
-				}
 				if (!isset($validation->id)) {
 					$_SESSION["message"]["error"] = "<strong>Attention !</strong> l'adresse e-mail n'existe pas.";
-					header('Location: views/recovery.php');
+					header('Location: /views/recovery.php');
 					exit;
 				}
 				$headers = 'From: Admin<camagru.project@gmail.com>' . "\r\n" .

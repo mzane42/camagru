@@ -22,7 +22,5 @@ RUN chmod 600 /etc/msmtp.conf && chown www-data:www-data /etc/msmtp.conf
 COPY php.ini /usr/local/etc/php/
 COPY camagru/ /var/www/html/
 
-RUN chmod +x /var/www/html/composerinstall.sh && cd /var/www/html/ && ./composerinstall.sh
-
 EXPOSE 80
 CMD ["apache2-foreground"]

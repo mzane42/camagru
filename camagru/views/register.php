@@ -31,14 +31,12 @@ if( !session_id() ) {
   		</div>
 		<div class="form-group">
 		  	<label class="form-label" for="password"> Ton mot de passe : </label>
-			<input required title="le mot de passe doit contenir au moins 6 caractères" class="form-input" id="password" type="password" name="password" required>
-      <!-- <input pattern=".{6,}" required title="le mot de passe doit contenir au moins 6 caractères" class="form-input" id="password" type="password" name="password" required> -->
+      <input pattern=".{8,}" required title="le mot de passe doit contenir au moins 8 caractères" class="form-input" id="password" type="password" name="password" required>
   		
     </div>
 		<div class="form-group">
 			<label class="form-label" for="confirm-pwd"> Confirme ton mot de passe : </label>
-			<!-- <input pattern=".{6,}" required title="le mot de passe doit contenir au moins 6 caractères" class="form-input" id="confirm_password" type="password" name="confirm-pwd" required> -->
-  		<input required title="le mot de passe doit contenir au moins 6 caractères" class="form-input" id="confirm_password" type="password" name="confirm-pwd" required>
+			<input pattern=".{8,}" required title="le mot de passe doit contenir au moins 6 caractères" class="form-input" id="confirm_password" type="password" name="confirm-pwd" required>
       </div>
 		<button class="form-button" type="submit">S'inscrire</button>
 	</form>
