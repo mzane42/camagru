@@ -3,8 +3,8 @@
     {
         session_start();
     }
-	require_once('views/partials/header.php');
-  require_once('controllers/pages_controller.php');
+	require_once('../partials/header.php');
+  require_once('../../controllers/pages_controller.php');
   $controller = new pagesController();
   if (isset($_SESSION['message'])) {
     $class_name = 'error';
@@ -18,5 +18,5 @@
 	<h2> Outch... !!! </h2>
 </div>
 <?php
-	require_once('views/partials/footer.php');
+	require_once('../partials/footer.php');
 ?>

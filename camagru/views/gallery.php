@@ -32,7 +32,7 @@
                 </div> 
               </div>
               <div class="image-wrapper">
-                <img src="<?php echo $image['url_link']; ?>"/>
+                <img class="image-link" src="<?php echo $image['url_link']; ?>"/>
               </div>
               <div class="billboard-social">
 				              <?php if (isset($_SESSION['login'])) { ?>

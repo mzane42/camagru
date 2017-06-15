@@ -68,11 +68,13 @@
 							}
 						}
 						else {
-							$img = $_POST['image'];
-							$img = str_replace('data:image/jpeg;base64,', '', $img);
-							$img = str_replace(' ', '+', $img);
-							$destim = base64_decode($img);
-							$dest = imagecreatefromstring($destim);
+							header('Location: /views/snapshots.php');
+							exit;
+							// $img = $_POST['image'];
+							// $img = str_replace('data:image/jpeg;base64,', '', $img);
+							// $img = str_replace(' ', '+', $img);
+							// $destim = base64_decode($img);
+							// $dest = imagecreatefromstring($destim);
 						}
 					}
 					else {

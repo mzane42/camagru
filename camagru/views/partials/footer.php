@@ -6,6 +6,7 @@
     width: 100%;
     padding: 20px;
     text-align: center;
+    position: absolute;
 }
 
 .footer-container > span {
@@ -16,7 +17,7 @@
 </style>
   <footer> 
   		<div class="footer-container"> 
-				<span> _Footer.</span> 
+				<span> _Footer</span> 
 		</div>
 
  </footer>
