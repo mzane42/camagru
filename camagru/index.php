@@ -14,7 +14,7 @@
 ?>
 <link rel="stylesheet" type="text/css" href="/assets/css/home.css">
 <div class="camagru_container">
-		<h1 class="camagru-title">Bienvenue sur _Camagru </h1>
+		<h1 class="camagru-title">_Camagru </h1>
 		<div class="auth-container">
 			<img src="/assets/images/camera_128.png"/>
 			<form class="login-form" action = "servers/authentification.php" method = "post">
