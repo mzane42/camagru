@@ -10,9 +10,7 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: root
   php-camagru:
-    build:
-      context: .
-      dockerfile: Dockerfile_dev
+    build: .
     depends_on:
       - mysql-camagru
     links:
