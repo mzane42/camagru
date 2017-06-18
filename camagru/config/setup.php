@@ -98,9 +98,7 @@
 	$query = "ALTER TABLE `like_image` ADD CONSTRAINT `like_image_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, ADD CONSTRAINT `like_image_ibfk_2` FOREIGN KEY (`image_id`) REFERENCES `image` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;";
 	$pdo->exec($query);
 	echo "Constraints for table ".$DB_TABLE['like_image'].PHP_EOL;
-	if (!file_exists('/uploads')) {
-		mkdir('/uploads', 0775, true);
-	}
+
 	$pdo = null;
 
 
