@@ -50,7 +50,7 @@
 			<p>  regarde la cam  ou uploade ta photo : </p>
 			<label class="upload_file">
 			  <img src="/assets/images/upload.png" alt="" />
-			  <input name="upload" type="file" />
+			  <input name="upload" type="file" accept="image/*" />
 			</label>
 		</div>
 		<div class="video-container">

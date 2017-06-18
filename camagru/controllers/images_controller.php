@@ -2,6 +2,29 @@
 	require_once '../models/user.php';
 
 	class imagesController {
+		public function imagecreatefromfile( $filename ) {
+		    if (!file_exists($filename)) {
+		        throw new InvalidArgumentException('File "'.$filename.'" not found.');
+		    }
+		    switch ( strtolower( pathinfo( $filename, PATHINFO_EXTENSION ))) {
+		        case 'jpeg':
+		        case 'jpg':
+		            return imagecreatefromjpeg($filename);
+		        break;
+
+		        case 'png':
+		            return imagecreatefrompng($filename);
+		        break;
+
+		        case 'gif':
+		            return imagecreatefromgif($filename);
+		        break;
+
+		        default:
+		            throw new InvalidArgumentException('File "'.$filename.'" is not valid jpg, png or gif image.');
+		        break;
+		    }
+		}
 		public function index() {
 			$total = image::total();
 			$perpage = 2;
@@ -57,13 +80,16 @@
 					$url_link = '/assets/webcam_images/'.$_SESSION['login'].'/'.uniqid().'.jpg';
 					if (isset($_FILES["upload"]["name"]) && $_FILES["upload"]["size"] != 0){
 						$target_dir = "../uploads/";
+						if (!file_exists('../uploads')) {
+							mkdir('../uploads', 0775, true);
+						}
 						$target_file = $target_dir . basename($_FILES["upload"]["name"]);
 						$uploadOk = 1;
 						$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 						$check = getimagesize($_FILES["upload"]["tmp_name"]);
 						if($check !== false) {
 							if (move_uploaded_file($_FILES["upload"]["tmp_name"], $target_file)) {
-								$dest = imagecreatefromjpeg($target_file);
+								$dest = imagesController::imagecreatefromfile($target_file);
 								unlink($target_file);
 							}
 						}

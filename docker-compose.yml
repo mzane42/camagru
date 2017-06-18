@@ -12,10 +12,13 @@ services:
   php-camagru:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_dev
     depends_on:
       - mysql-camagru
     links:
       - mysql-camagru:mysql-camagru
     ports:
       - "8080:80"
+      - "2222:22"
+    volumes:
+      - ./camagru/:/var/www/html/
